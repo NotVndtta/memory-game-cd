@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/memory-game-cd/static/css/main.e844462f.css",
+    "main.js": "/memory-game-cd/static/js/main.46da896a.js",
+    "static/js/787.c185341f.chunk.js": "/memory-game-cd/static/js/787.c185341f.chunk.js",
+    "static/media/logo.svg": "/memory-game-cd/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/memory-game-cd/index.html",
+    "main.e844462f.css.map": "/memory-game-cd/static/css/main.e844462f.css.map",
+    "main.46da896a.js.map": "/memory-game-cd/static/js/main.46da896a.js.map",
+    "787.c185341f.chunk.js.map": "/memory-game-cd/static/js/787.c185341f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e844462f.css",
+    "static/js/main.46da896a.js"
+  ]
+}
