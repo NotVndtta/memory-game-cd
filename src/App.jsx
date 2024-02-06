@@ -1,4 +1,3 @@
-import './App.css';
 import { useState } from 'react';
 
 const cardImages = [
@@ -24,14 +23,14 @@ function App() {
   }
 
   return (
-    <div className='max-w-860 mx-auto my-10'>
-        <h1 className="text-3xl font-bold underline my-2">    
+    <div className='max-w-[860px] mx-auto my-10'>
+        <h1 className="text-3xl font-bold  my-2">    
           Memory Game
         </h1>
-        <button onClick={shuffleCards} className='bg-transparent border-2 border-white py-2 px-4 rounded font-bold text-white cursor-pointer text-lg
+        <button onClick={shuffleCards} className='bg-transparent border-2 border-white py-1 px-3 rounded font-bold text-white cursor-pointer text-lg
          hover:bg-pink-600 hover:text-white'>
           New Game</button>
-          <div className=''>
+          <div className='mt-10 grid grid-cols-4 gap-5'>
           {cards.map(card => (
             <div key={card.id}>
               <div className=''>
