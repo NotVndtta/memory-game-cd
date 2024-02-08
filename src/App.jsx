@@ -1,17 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Card from './components/Card';
 
 const cardImages = [
-  {"src":  process.env.PUBLIC_URL + '/img/helmet.png'},
-  {"src": process.env.PUBLIC_URL + '/img/potion.png'},
-  {"src": process.env.PUBLIC_URL + '/img/ring.png'},
-  {"src": process.env.PUBLIC_URL + '/img/scroll.png'},
-  {"src": process.env.PUBLIC_URL + '/img/shield.png'},
-  {"src": process.env.PUBLIC_URL + '/img/sword.png'}
+  {"src":  process.env.PUBLIC_URL + '/img/helmet.png', matched: false},
+  {"src": process.env.PUBLIC_URL + '/img/potion.png', matched: false},
+  {"src": process.env.PUBLIC_URL + '/img/ring.png', matched: false},
+  {"src": process.env.PUBLIC_URL + '/img/scroll.png', matched: false},
+  {"src": process.env.PUBLIC_URL + '/img/shield.png', matched: false},
+  {"src": process.env.PUBLIC_URL + '/img/sword.png', matched: false}
 ]
 
 function App() {
   const [cards, setCards] = useState([]) // Объявляем состояние для карточек и финкции для его обновления
   const [turns, setTurns] = useState(0) // Объявляем состояние для количества ходов и финкции для его обновления
+  const [choiceOne, setChoiceOne] = useState(null)
+  const [choiceTwo, setChoiceTwo] = useState(null)
 
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages] // создание массива, который сожержит увдоенный массив картинок
@@ -20,6 +23,36 @@ function App() {
   
     setCards(shuffledCards) // обновление состояния новым перемешанным массивом карточек
     setTurns(0)
+  }
+
+  const handleChoice = (card) => {
+    choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
+  }
+
+  useEffect(() => {
+    if (choiceOne && choiceTwo) {
+
+      if(choiceOne.src === choiceTwo.src) {
+        setCards(prevCards => {
+          return prevCards.map(card => {
+            if (card.src === choiceOne.src){
+              return {...card, matched: true}
+            } else {
+              return card
+            }
+          })
+        })
+        resetTurn()
+      } else {
+        resetTurn()
+      }
+    }
+  }, [choiceOne, choiceTwo])
+
+  const resetTurn = () => {
+    setChoiceOne(null)
+    setChoiceTwo(null)
+    setTurns(prevTurns => prevTurns + 1)
   }
 
   return (
@@ -32,12 +65,7 @@ function App() {
           New Game</button>
           <div className='mt-10 grid grid-cols-4 gap-5'>
           {cards.map(card => (
-            <div key={card.id}>
-              <div className=''>
-                <img className='' src={card.src} alt="front" />
-                <img className='' src= {process.env.PUBLIC_URL + '/img/cover.png'} alt="back" />
-              </div>
-            </div>
+            <Card  key={card.id} card={card} handleChoice = {handleChoice} flipped={card === choiceOne || card === choiceTwo || card.matched}/>  
             ))}
 
           </div>
