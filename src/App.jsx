@@ -2,12 +2,13 @@ import { useCallback, useEffect, useState } from 'react';
 import Card from './components/Card';
 
 const cardImages = [
-  {"src":  process.env.PUBLIC_URL + '/img/helmet.png', matched: false},
-  {"src": process.env.PUBLIC_URL + '/img/potion.png', matched: false},
-  {"src": process.env.PUBLIC_URL + '/img/ring.png', matched: false},
-  {"src": process.env.PUBLIC_URL + '/img/scroll.png', matched: false},
-  {"src": process.env.PUBLIC_URL + '/img/shield.png', matched: false},
-  {"src": process.env.PUBLIC_URL + '/img/sword.png', matched: false}
+  {"src":  process.env.PUBLIC_URL + '/img/discord.png', matched: false},
+  {"src": process.env.PUBLIC_URL + '/img/spotify.png', matched: false},
+  {"src": process.env.PUBLIC_URL + '/img/vk.png', matched: false},
+  {"src": process.env.PUBLIC_URL + '/img/youtube.png', matched: false},
+  {"src": process.env.PUBLIC_URL + '/img/figma.png', matched: false},
+  {"src": process.env.PUBLIC_URL + '/img/telegram.png', matched: false},
+  
 ]
 
 function App() {
