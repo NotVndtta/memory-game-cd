@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import Card from './components/Card';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root')
 
 const cardImages = [
   {"src":  process.env.PUBLIC_URL + '/img/discord.png', matched: false},
@@ -19,6 +22,25 @@ function App() {
   const [disabled, setDisabled] = useState(false)
   const [gameOver, setGameOver] = useState(false);
 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      backgroundColor: '#1b1523',
+      padding: '20px',
+      borderRadius: '10px',
+      width: '300px',
+      textAlign: 'center',
+    },
+  };
+
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages] // создание массива, который сожержит увдоенный массив картинок
     .sort(() => Math.random() - 0.5) // перемешивание элементов
@@ -28,6 +50,7 @@ function App() {
     setChoiceTwo(null)
     setCards(shuffledCards) // обновление состояния новым перемешанным массивом карточек
     setTurns(0)
+    setGameOver(false)
   }
 
   const handleChoice = (card) => {
@@ -71,32 +94,60 @@ function App() {
     shuffleCards() 
   }, []) 
 
-  const renderGameOverMessage = () => {  
-    if (gameOver) {  
-      return (  
-        <p>{turns < 15 ? "Grats! " : "Oh you lose"}</p>  
-      )  
-    }  
-  }  
+  
+  useEffect(() => {
+    const gameStarted = turns > 0;
+    const allCardsMatched = cards.every(card => card.matched);
+    if (gameStarted && allCardsMatched) {
+      setModalMessage("Поздравляем! Вы выиграли!");
+      setModalIsOpen(true);
+    }
+  }, [cards, turns]);
+  
+
+  useEffect(() => {
+    if (gameOver) {
+      setModalMessage(turns < 15 ? "Поздравляем! Вы выиграли!" : "О нет! Вы проиграли!");
+      setModalIsOpen(true);
+    }
+  }, [gameOver, turns]);
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    shuffleCards();
+  }
+
+
 
   return (
-    <div className='max-w-[860px] mx-auto my-10'>
+    <div className='max-w-[700px] mx-auto my-10'>
         <h1 className="text-3xl font-bold  my-2">    
           Memory Game
         </h1>
-        <button onClick={shuffleCards} className='bg-transparent border-2 border-white py-1 px-3 rounded font-bold text-white cursor-pointer text-lg
+        <button onClick={shuffleCards} className='bg-transparent border-2 border-white py-1 px-3 rounded font-bold 
+        text-white cursor-pointer text-lg
          hover:bg-pink-600 hover:text-white'>
           New Game</button>
             <p>Turns: {turns}</p>
-          {renderGameOverMessage()}
+          
           <div className='mt-10 grid grid-cols-4 gap-5'>
           {cards.map(card => (
             <Card  key={card.id} card={card} handleChoice = {handleChoice} 
             flipped={card === choiceOne || card === choiceTwo || card.matched}
             disabled= {disabled} 
+            gameOver={gameOver}
+
             /> 
             ))}
-          
+          <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Game Over Modal"
+        >
+          <h2>{modalMessage}</h2>
+          <button onClick={closeModal}>Close</button>
+        </Modal>
           </div>
     </div>
   );
