@@ -166,7 +166,7 @@ function App() {
           className='buttonStyle'>
           Set Grid 4x4
         </button>
-            <p>Turns: {turns}</p>
+            <p>Turns: {turns} / {maxTurns+1}</p>
           
           <div className='mt-10 grid grid-cols-4 gap-5'>
           {cards.map(card => (
