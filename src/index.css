@@ -20,3 +20,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.buttonStyle {
+  @apply w-[135px] bg-transparent border-2 border-white py-1 px-3 rounded 
+  font-bold text-white cursor-pointer text-lg
+  hover:bg-pink-600 hover:text-white ml-4 my-2;
+}
+

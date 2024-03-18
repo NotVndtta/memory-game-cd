@@ -27,14 +27,14 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
 
-  const [cardSize, setCardSize] = useState({width: '160px', height: '160px'});
+  const [cardSize, setCardSize] = useState('xl:w-40 xl:h-40');
   const [gridSize, setGridSize] = useState({rows: 3, cols: 3});
 
   const [maxTurns, setMaxTurns] = useState(8);
   
   const setGridSize2x4 = () => {
     setGridSize({rows: 2, cols: 4});
-    setCardSize({width: '160px', height: '160px'});
+    setCardSize('xl:w-40 xl:h-40');
     setMaxTurns(8);
     shuffleCards();
 
@@ -42,14 +42,14 @@ function App() {
 
   const setGridSize3x4 = () => {
     setGridSize({rows: 3, cols: 4});
-    setCardSize({width: '160px', height: '160px'});
+    setCardSize('xl:w-40 xl:h-40');
     setMaxTurns(14);
     shuffleCards();
   }
   
   const setGridSize4x4 = () => {
     setGridSize({rows: 4, cols: 4});
-    setCardSize({width: '140px', height: '140px'});
+    setCardSize('xl:w-30 xl:h-30');
     setMaxTurns(16);
     shuffleCards();
   }
@@ -148,30 +148,22 @@ function App() {
 
 
   return (
-    <div className='max-w-[680px] mx-auto my-10'>
+    <div className='px-2 max-w-[680px] mx-auto my-10'>
         <h1 className="text-3xl font-bold  my-2">    
           Memory Game
         </h1>
         <button onClick={shuffleCards} 
-          className='bg-transparent border-2 border-white py-1 px-3 rounded font-bold 
-        text-white cursor-pointer text-lg
-         hover:bg-pink-600 hover:text-white'>
+          className='buttonStyle'>
           New Game</button>
         <button onClick={setGridSize2x4} 
-          className='bg-transparent border-2 border-white py-1 px-3 rounded font-bold 
-          text-white cursor-pointer text-lg
-          hover:bg-pink-600 hover:text-white ml-4'>
+          className='buttonStyle'>
           Set Grid 2x4
         </button>
         <button onClick={setGridSize3x4} 
-          className='bg-transparent border-2 border-white py-1 px-3 rounded font-bold 
-          text-white cursor-pointer text-lg
-          hover:bg-pink-600 hover:text-white ml-4'>
+          className='buttonStyle'>
           Set Grid 3x4</button>
         <button onClick={setGridSize4x4} 
-          className='bg-transparent border-2 border-white py-1 px-3 rounded font-bold 
-          text-white cursor-pointer text-lg
-          hover:bg-pink-600 hover:text-white ml-4'>
+          className='buttonStyle'>
           Set Grid 4x4
         </button>
             <p>Turns: {turns}</p>
