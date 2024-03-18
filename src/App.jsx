@@ -29,10 +29,13 @@ function App() {
 
   const [cardSize, setCardSize] = useState({width: '160px', height: '160px'});
   const [gridSize, setGridSize] = useState({rows: 3, cols: 3});
+
+  const [maxTurns, setMaxTurns] = useState(8);
   
   const setGridSize2x4 = () => {
     setGridSize({rows: 2, cols: 4});
     setCardSize({width: '160px', height: '160px'});
+    setMaxTurns(8);
     shuffleCards();
 
   }
@@ -40,12 +43,14 @@ function App() {
   const setGridSize3x4 = () => {
     setGridSize({rows: 3, cols: 4});
     setCardSize({width: '160px', height: '160px'});
+    setMaxTurns(14);
     shuffleCards();
   }
   
   const setGridSize4x4 = () => {
     setGridSize({rows: 4, cols: 4});
     setCardSize({width: '140px', height: '140px'});
+    setMaxTurns(16);
     shuffleCards();
   }
 
@@ -86,10 +91,10 @@ function App() {
     setTurns(prevTurns => prevTurns + 1)
     setDisabled(false)
 
-    if (turns >= 14) {  
+    if (turns >= maxTurns) {  
       setGameOver(true);  
     }
-  }, [turns]);
+  }, [turns,maxTurns]);
 
   useEffect(() => {
     if (choiceOne && choiceTwo) {
@@ -130,10 +135,10 @@ function App() {
 
   useEffect(() => {
     if (gameOver) {
-      setModalMessage(turns < 15 ? "Grats! You win!" : "Oh no! You lose :(");
+      setModalMessage(turns <= maxTurns ? "Grats! You win!" : "Oh no! You lose :(");
       setModalIsOpen(true);
     }
-  }, [gameOver, turns]);
+  }, [gameOver, turns, maxTurns]);
 
   const closeModal = () => {
     setModalIsOpen(false);
