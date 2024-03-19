@@ -71,12 +71,15 @@ function App() {
   };
 
   const shuffleCards = useCallback(() => {
+    //Создание нового массива, путем дублирования его половины карточек
     const shuffledCards = [...cardImages.slice(0, (gridSize.rows * gridSize.cols) / 2), ...cardImages.slice(0, (gridSize.rows * gridSize.cols) / 2)]
       .sort(() => Math.random() - 0.5)
+      //создаение нового массива с айдишниками
       .map((card) => ({...card, id: Math.random() }))
-  
+    //Сброс выбранных карт
     setChoiceOne(null)
     setChoiceTwo(null)
+    // Установка нового массива перемешанных карт
     setCards(shuffledCards)
     setTurns(0)
     setGameOver(false)
@@ -123,6 +126,9 @@ function App() {
   }, [shuffleCards, gridSize]) 
 
   
+  
+  
+
   useEffect(() => {
     const gameStarted = turns > 0;
     const allCardsMatched = cards.every(card => card.matched);
@@ -130,15 +136,11 @@ function App() {
       setModalMessage("Grats! You win!");
       setModalIsOpen(true);
     }
-  }, [cards, turns]);
-  
-
-  useEffect(() => {
     if (gameOver) {
       setModalMessage(turns <= maxTurns ? "Grats! You win!" : "Oh no! You lose :(");
       setModalIsOpen(true);
     }
-  }, [gameOver, turns, maxTurns]);
+  }, [gameOver, turns, maxTurns, cards]);
 
   const closeModal = () => {
     setModalIsOpen(false);
